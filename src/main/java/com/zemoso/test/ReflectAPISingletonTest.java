@@ -10,24 +10,24 @@ public class ReflectAPISingletonTest {
     private static final Logger logger = LoggerFactory.getLogger(ReflectAPISingletonTest.class);
 
     public static void main(String[] args) {
-        HibernateUtil pu = null, pu1 = null;
-        Constructor cons[] = null;
+        HibernateUtil secondInstance, firstInstance;
+        Constructor[] cons;
         //create Object
-        pu = HibernateUtil.getInstance();
-        logger.info("pu hashCode::" + pu.hashCode());
+        secondInstance = HibernateUtil.getInstance();
+        logger.info("secondInstance hashCode::" + secondInstance.hashCode());
         try {
             //Create Another object for Singleton class through Reflection API
             //Load java class
             Class clazz = Class.forName("com.zemoso.singleton.HibernateUtil");
             //get All constructors of the class
             cons = clazz.getDeclaredConstructors();
-            // Accesss private constructor
+            // Access private constructor
             cons[0].setAccessible(true);
             //instantiate class using The accessed consturctor
-            pu1 = (HibernateUtil) cons[0].newInstance(null);
-            logger.info("pu==pu1" + (pu == pu1));
-            logger.info("pu hashCode::" + pu.hashCode());
-            logger.info("pu1 hashCode::" + pu1.hashCode());
+            firstInstance = (HibernateUtil) cons[0].newInstance(null);
+            logger.info("secondInstance== firstInstance" + (secondInstance == firstInstance));
+            logger.info("secondInstance hashCode::" + secondInstance.hashCode());
+            logger.info(" firstInstance hashCode::" + firstInstance.hashCode());
             logger.info("Reflect API code is executed");
 
         } catch (ClassNotFoundException cnf) {

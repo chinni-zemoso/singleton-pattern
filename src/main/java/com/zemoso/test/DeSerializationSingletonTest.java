@@ -13,15 +13,15 @@ public class DeSerializationSingletonTest {
 	private static final Logger logger = LoggerFactory.getLogger(DeSerializationSingletonTest.class);
 
 	public static void main(String[] args) {
-		HibernateUtil pu=null,pu1=null;
-		ObjectOutputStream oos=null;
-		ObjectInputStream ois=null;
+		HibernateUtil otherInstance, firstInstance;
+		ObjectOutputStream oos;
+		ObjectInputStream ois;
 		//get Object
-		pu= HibernateUtil.getInstance();
-		//Perform Serialziation on the object
+		otherInstance= HibernateUtil.getInstance();
+		//Perform serialization on the object
 		try{
 		 oos=new ObjectOutputStream(new FileOutputStream("/home/projects/singleton.ser"));
-		 oos.writeObject(pu);
+		 oos.writeObject(otherInstance);
 		 oos.flush();
 		 oos.close();
 		 logger.info("Serialization is done");
@@ -30,14 +30,14 @@ public class DeSerializationSingletonTest {
 			e.printStackTrace();
 		}
 		
-		//perform Deserialziation
+		//perform Deserialization
 		try{
 			ois=new ObjectInputStream(new FileInputStream("/home/projects/singleton.ser"));
-		    pu1=(HibernateUtil) ois.readObject();
+		     firstInstance=(HibernateUtil) ois.readObject();
 		    logger.info("DeSerialization");
-		    logger.info("pu==pu1?"+(pu==pu1));
-		    logger.info("pu hashCode::"+pu.hashCode());
-		    logger.info("pu1 hashCode::"+pu1.hashCode());
+		    logger.info("otherInstance== firstInstance?"+(otherInstance== firstInstance));
+		    logger.info("otherInstance hashCode::"+otherInstance.hashCode());
+		    logger.info(" firstInstance hashCode::"+ firstInstance.hashCode());
 		}//try
 		catch(Exception e){
 			e.printStackTrace();

@@ -6,21 +6,22 @@ import org.slf4j.LoggerFactory;
 
 public class CloneSingletonTest {
 
-	private static final Logger logger = LoggerFactory.getLogger(CloneSingletonTest.class);
-	public static void main(String[] args) {
-		HibernateUtil pu1=null,pu2=null;
-		
-		try{
-			pu1= HibernateUtil.getInstance();
-			//perform cloning
-			pu2=(HibernateUtil)pu1.clone();
-			logger.info("pu1==pu2?"+(pu1==pu2));
-			logger.info("pu1 hashCode::"+pu1.hashCode());
-			logger.info("pu2 hashCode::"+pu2.hashCode());
-		}//try
-		catch(CloneNotSupportedException cne){
-		  cne.printStackTrace();	
-		}
+    private static final Logger logger = LoggerFactory.getLogger(CloneSingletonTest.class);
 
-	}//main
+    public static void main(String[] args) {
+        HibernateUtil firstInstance, secondInstance;
+
+        try {
+            firstInstance = HibernateUtil.getInstance();
+            //perform cloning
+            secondInstance = (HibernateUtil) firstInstance.clone();
+            logger.info(" firstInstance==secondInstance?" + (firstInstance == secondInstance));
+            logger.info(" firstInstance hashCode::" + firstInstance.hashCode());
+            logger.info("secondInstance hashCode::" + secondInstance.hashCode());
+        }//try
+        catch (CloneNotSupportedException cne) {
+            cne.printStackTrace();
+        }
+
+    }//main
 }//class

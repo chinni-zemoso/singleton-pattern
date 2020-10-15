@@ -1,26 +1,23 @@
 package com.zemoso.singleton;
 
 import com.zemoso.util.CommonsUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.io.ObjectInputStream;
 
 public class HibernateUtil extends CommonsUtils {
 
-    private static final Logger logger = LoggerFactory.getLogger(HibernateUtil.class);
     private static HibernateUtil instance;
     private static boolean isInstantiated = false;
 
     private HibernateUtil() {
-        if (isInstantiated == false) {
+        if (!isInstantiated) {
             isInstantiated = true;
         } else {
             throw new IllegalArgumentException("Reflection API based object is not allowed");
         }
     }
 
-    public static final HibernateUtil getInstance() {
+    public static HibernateUtil getInstance() {
         if (instance == null) {
             synchronized (HibernateUtil.class) {
                 //Logic to connect DB

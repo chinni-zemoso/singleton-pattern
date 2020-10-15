@@ -9,10 +9,10 @@ public class TicketPrintingServletThread implements Runnable {
 
 
     public void run() {
-        HibernateUtil pu = null;
         logger.info("Current Thread name::" + Thread.currentThread().getName());
-        pu = HibernateUtil.getInstance();
+        HibernateUtil firstInstance = HibernateUtil.getInstance();
         try {
+            logger.info("Thread is =>"+firstInstance);
             Thread.sleep(10000);
         } catch (Exception e) {
             e.printStackTrace();
